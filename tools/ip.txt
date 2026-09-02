@@ -109,6 +109,22 @@ ip -n s1 addr add 192.168.64.1/24 dev veth0   # 在网络命名空间中添加�
 
 
 ##############################################################################
+# ip tuntap
+##############################################################################
+
+ip tuntap add dev tun0 mode tun               # 创建一个 TUN 设备
+ip addr add 10.0.0.1/24 dev tun0              # 给 TUN 设备添加地址
+ip link set tun0 up                           # 把 TUN 设备开启
+ip addr show tun0                             # 显示 TUN 设备的地址
+ip link show tun0                             # 显示 TUN 设备的信息
+ip link set tun0 down                         # 把 TUN 设备关闭
+ip tuntap del dev tun0 mode tun               # 删除 TUN 设备
+
+# 创建一个 TUN 设备，并指定用户和组权限
+ip tuntap add dev tun0 mode tun user $USER group $USER
+
+
+##############################################################################
 # quick reference (busybox ip)
 ##############################################################################
 
